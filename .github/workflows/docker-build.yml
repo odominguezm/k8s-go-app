@@ -3,16 +3,10 @@ name: Build and Push Docker Image
 on:
   push:
     branches: [ "main" ]
-# AÑADE ESTA SECCIÓN AQUÍ:
+
 permissions:
   contents: read
   packages: write
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
 
 jobs:
   build:
@@ -33,5 +27,4 @@ jobs:
         with:
           context: .
           push: true
-          # Esto generará una imagen llamada ghcr.io/tu-usuario/k8s-go-app:latest
           tags: ghcr.io/${{ github.repository }}:latest
