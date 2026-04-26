@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traefik-dashboard-ingress
+  namespace: kube-system
+  annotations:
+    # Este es el truco: le decimos a Traefik que use su servicio interno de API
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: traefik.orlando.lab
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            # En K3s, el servicio de administración se llama 'api@internal'
+            # pero para Ingress estándar, apuntamos al servicio de Traefik en el puerto 9000
+            name: traefik
+            port:
+              number: 9000
