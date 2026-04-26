@@ -9,6 +9,7 @@ func main() {
 	// Ruta principal
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "¡Hola Orlando! App corriendo en Kubernetes v1.0\n")
+		fmt.Fprintf(w, "¡Hola Orlando! CD Funcionando al 100% 🚀\n")
 	})
 
 	// Health Check (Vital para SRE/K8s)
