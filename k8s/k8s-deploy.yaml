@@ -14,21 +14,20 @@ spec:
       labels:
         app: go-app
     spec:
-      imagePullSecrets:
-        - name: ghcr-secret
       containers:
       - name: go-app
         image: ghcr.io/odominguezm/k8s-go-app:latest
         ports:
         - containerPort: 8080
-        resources:
-          limits:
-            cpu: "200m"
-            memory: "128Mi"
-          requests:
-            cpu: "100m"
-            memory: "64Mi"
+        # LivenessProbe: Reinicia el contenedor si se queda "congelado"
         livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        # ReadinessProbe: No le envía tráfico hasta que la app responda
+        readinessProbe:
           httpGet:
             path: /health
             port: 8080
@@ -40,11 +39,10 @@ kind: Service
 metadata:
   name: go-app-service
 spec:
-  type: NodePort
+  type: ClusterIP  # Cambiado de NodePort a ClusterIP para uso con Ingress
   selector:
     app: go-app
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8080
-      nodePort: 30080
+      port: 80         # Puerto interno del servicio (donde apunta el Ingress)
+      targetPort: 8080 # Puerto real de la aplicación dentro del contenedor
