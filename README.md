@@ -2,6 +2,11 @@
 
 Este proyecto es un laboratorio de ingeniería de infraestructura y **SRE** diseñado para demostrar el despliegue de microservicios en un clúster de Kubernetes ligero (K3s) utilizando infraestructura como código (IaC), redes avanzadas y automatización profesional.
 
+## 🗺️ Visualización de la Arquitectura
+
+![Diagrama conceptual del K3s Lab](/home/odominguezm/Descargas/k3s-architecture-orlando.png)
+*Diagrama detallado que muestra el flujo de tráfico desde el host Pop!_OS hasta los pods de la aplicación Go, pasando por Traefik Ingress Controller configurado con Host Network y ruteo basado en nombres de dominio.*
+
 ## 🏗️ Arquitectura del Proyecto
 
 El laboratorio se divide en tres componentes principales:
